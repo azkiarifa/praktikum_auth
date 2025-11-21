@@ -6,22 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
 
-/*
-|--------------------------------------------------------------------------
-| LOGIN PAGE
-|--------------------------------------------------------------------------
-*/
-
+//login
 Route::get('/admin/login', fn () => view('admin.login'))->name('admin.login');
 Route::get('/seller/login', fn () => view('seller.login'))->name('seller.login');
 Route::get('/buyer/login', fn () => view('buyer.login'))->name('buyer.login');
-
-
-/*
-|--------------------------------------------------------------------------
-| LOGIN ACTION
-|--------------------------------------------------------------------------
-*/
 
 Route::post('/admin/login', function (Request $r) {
     if (Auth::guard('admin')->attempt($r->only('email','password'))) {
@@ -46,12 +34,7 @@ Route::post('/buyer/login', function (Request $r) {
 
 
 
-/*
-|--------------------------------------------------------------------------
-| ADMIN (auth:admin)
-|--------------------------------------------------------------------------
-*/
-
+//admin
 Route::middleware('auth:admin')->get('/admin/dashboard', function () {
     $products = Product::all();
     return view('admin.dashboard', compact('products'));
@@ -80,12 +63,7 @@ Route::middleware('auth:admin')->get('/admin/product/{id}/delete', function ($id
 
 
 
-/*
-|--------------------------------------------------------------------------
-| SELLER (auth:seller)
-|--------------------------------------------------------------------------
-*/
-
+//seller
 Route::middleware('auth:seller')->get('/seller/dashboard', function () {
     $products = Product::all();
     return view('seller.dashboard', compact('products'));
@@ -117,12 +95,7 @@ Route::middleware('auth:seller')->post('/seller/product/{id}/update', function (
 
 
 
-/*
-|--------------------------------------------------------------------------
-| BUYER (auth:buyer)
-|--------------------------------------------------------------------------
-*/
-
+//buyer
 Route::middleware('auth:buyer')->get('/buyer/dashboard', function () {
     return view('buyer.dashboard');
 });

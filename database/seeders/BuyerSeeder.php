@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class BuyerSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         Buyer::create([
